@@ -1,0 +1,30 @@
+name: GK V2 CI
+on:
+  push:
+    branches: ['develop/gk-v2']
+    paths: ['gk-v2/**', '.github/workflows/gk-v2-ci.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gk-v2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gk-v2-build
+          path: gk-v2/dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gk-v2-lockfile
+          path: gk-v2/package-lock.json

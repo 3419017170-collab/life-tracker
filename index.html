@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#286451">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="./manifest.json">
+<title>生活正反馈</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f2f6f3;color:#243c32;font-family:system-ui,sans-serif}
+main{max-width:600px;margin:auto;padding:20px}
+h1{font-size:28px;margin-bottom:6px}
+h2{font-size:20px}
+p{line-height:1.6}
+.card{background:white;border:1px solid #dce5df;border-radius:18px;padding:20px;margin:16px 0}
+.muted{color:#718078;font-size:14px}
+label{display:block;padding:12px 0}
+input,textarea{font:inherit}
+input[type=checkbox]{width:20px;height:20px;accent-color:#286451;vertical-align:middle;margin-right:10px}
+input:not([type=checkbox]),textarea{width:100%;padding:12px;border:1px solid #cddbd2;border-radius:10px;margin:6px 0 12px;background:#f8faf8}
+button{background:#286451;color:white;border:0;border-radius:10px;padding:12px 16px;font:inherit;margin:5px 3px;cursor:pointer}
+progress{width:100%;height:16px;accent-color:#286451}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.number{font-size:28px;font-weight:bold}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7;font-family:inherit}
+</style>
+</head>
+<body>
+<main>
+<h1>生活正反馈</h1>
+<p class="muted">记录做到的事情，每一点进步都算数。</p>
+
+<section class="card">
+<div class="grid">
+<div>初始体重<div class="number">215斤</div></div>
+<div>参考目标<div class="number">180斤</div></div>
+</div>
+</section>
+
+<section class="card">
+<h2>记录日期</h2>
+<input type="date" id="date">
+<h2>今日打卡</h2>
+<progress id="progress" value="0" max="8"></progress>
+<p id="feedback"></p>
+<div id="tasks"></div>
+</section>
+
+<section class="card">
+<h2>身体与训练记录</h2>
+<label>体重（斤）</label>
+<input id="weight" type="number" step="0.1" min="0" placeholder="选填">
+<label>腰围（厘米）</label>
+<input id="waist" type="number" step="0.1" min="0" placeholder="选填">
+<label>体脂率（%）</label>
+<input id="fat" type="number" step="0.1" min="0" max="100" placeholder="选填">
+<label>训练记录</label>
+<textarea id="training" rows="4" placeholder="动作、重量、组数、次数"></textarea>
+<label>今日心情</label>
+<textarea id="mood" rows="3" placeholder="今天有什么值得记录的事情？"></textarea>
+<button onclick="save()">保存今日记录</button>
+<p id="status" class="muted"></p>
+</section>
+
+<section class="card">
+<h2>饮食时间表</h2>
+<p>08:30 起床、喝水</p>
+<p>08:45 贝果、牛奶、蛋白粉</p>
+<p class="muted">蛋白粉初期15克，耐受后30克。</p>
+<p>11:00 食堂午餐、适量主食</p>
+<p>14:15 香蕉（训练日）</p>
+<p>15:00 训练或休息</p>
+<p>17:00 食堂晚餐</p>
+<p>20:30 南瓜子仁10克，按需加餐</p>
+<p>23:30 睡前放松</p>
+<p>00:00 睡觉</p>
+<p class="muted">每周一次自由餐。胸闷经医生评估后再正式训练；补剂按肠胃耐受情况调整。</p>
+</section>
+
+<section class="card">
+<h2>周报与月报</h2>
+<button onclick="report(7)">最近7天</button>
+<button onclick="report(30)">最近30天</button>
+<pre id="report"></pre>
+<button onclick="copyReport()">复制报告</button>
+</section>
+
+<section class="card">
+<h2>数据备份</h2>
+<p class="muted">数据保存在当前浏览器，请定期导出备份。</p>
+<button onclick="backup()">导出记录</button>
+<label>恢复备份</label>
+<input type="file" id="restore" accept=".json">
+</section>
+<p class="muted">不必每天满分，合理休息也是进步。</p>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const key="life-feedback-v1";
+let data={};
+try{data=JSON.parse(localStorage.getItem(key)||"{}")}catch(e){}
+const tasks=[
+"08:30 按时起床",
+"08:45 吃早餐",
+"11:00 正常吃午餐",
+"完成适合身体状态的运动或休息",
+"17:00 正常吃晚餐",
+"按需晚间加餐",
+"做一件自己喜欢的事情",
+"00:00 按时睡觉"
+];
+const fields=["weight","waist","fat","training","mood"];
+function day(d){
+return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+$("date").value=day(new Date());
+tasks.forEach((t,i)=>{
+const label=document.createElement("label");
+const input=document.createElement("input");
+input.type="checkbox";
+input.id="task"+i;
+input.onchange=save;
+label.append(input,document.createTextNode(t));
+$("tasks").append(label);
+});
+function refresh(){
+const n=tasks.filter((t,i)=>$("task"+i).checked).length;
+$("progress").value=n;
+$("feedback").textContent="今天积累了 "+n+" 次正反馈";
+}
+function save(){
+const date=$("date").value;
+if(!date)return;
+const r={checks:tasks.map((t,i)=>$("task"+i).checked)};
+fields.forEach(f=>r[f]=$(f).value);
+data[date]=r;
+try{
+localStorage.setItem(key,JSON.stringify(data));
+$("status").textContent="记录已保存";
+}catch(e){
+$("status").textContent="保存失败，请导出备份";
+}
+refresh();
+}
+function load(){
+const r=data[$("date").value]||{};
+tasks.forEach((t,i)=>$("task"+i).checked=!!r.checks?.[i]);
+fields.forEach(f=>$(f).value=r[f]??"");
+$("status").textContent="";
+refresh();
+}
+$("date").onchange=load;
+fields.forEach(f=>$(f).onchange=save);
+function report(n){
+const start=new Date();
+start.setDate(start.getDate()-n+1);
+const dates=Object.keys(data).filter(d=>d>=day(start)&&d<=day(new Date())).sort();
+let s="生活正反馈 · 最近"+n+"天报告\n";
+s+="记录天数："+dates.length+"\n";
+s+="正反馈次数："+dates.reduce((a,d)=>a+(data[d].checks||[]).filter(Boolean).length,0)+"\n";
+for(const [f,name,unit] of [["weight","体重","斤"],["waist","腰围","cm"],["fat","体脂率","%"]]){
+const v=dates.map(d=>data[d][f]).filter(x=>x!==""&&x!=null&&Number.isFinite(Number(x))).map(Number);
+if(v.length){
+s+=name+"平均值："+(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1)+unit+"\n";
+if(v.length>1)s+=name+"首末变化："+(v.at(-1)-v[0]).toFixed(1)+unit+"\n";
+}}
+dates.forEach(d=>{
+const r=data[d];
+s+="\n"+d+"\n";
+if(r.weight)s+="体重："+r.weight+"斤\n";
+if(r.waist)s+="腰围："+r.waist+"cm\n";
+if(r.fat)s+="体脂率："+r.fat+"%\n";
+if(r.training)s+="训练："+r.training+"\n";
+if(r.mood)s+="心情："+r.mood+"\n";
+});
+$("report").textContent=s;
+}
+async function copyReport(){
+try{await navigator.clipboard.writeText($("report").textContent);alert("报告已复制");}
+catch(e){alert("请手动选择报告文字并复制");}
+}
+function backup(){
+const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));
+const a=document.createElement("a");
+a.href=url;a.download="生活正反馈备份.json";a.click();
+setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$("restore").onchange=async e=>{
+try{
+const incoming=JSON.parse(await e.target.files[0].text());
+if(!incoming||typeof incoming!=="object"||Array.isArray(incoming))throw Error();
+if(!Object.entries(incoming).every(([d,r])=>/^\d{4}-\d{2}-\d{2}$/.test(d)&&r&&typeof r==="object"&&Array.isArray(r.checks)))throw Error();
+if(!confirm("导入备份？同日期记录将被覆盖。"))return;
+data={...data,...incoming};
+localStorage.setItem(key,JSON.stringify(data));
+load();alert("备份恢复成功");
+}catch(e){alert("无法读取备份文件");}
+};
+load();
+if("serviceWorker" in navigator){
+navigator.serviceWorker.register("./sw.js").catch(()=>{});
+}
+</script>
+</body>
+</html>

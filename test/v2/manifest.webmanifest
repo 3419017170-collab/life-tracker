@@ -1,0 +1,14 @@
+{
+  "name": "GK · 光之力量 V2.0 测试版",
+  "short_name": "光之力量",
+  "description": "记录生活里的微光，让每一点进步都算数。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fbf8f3",
+  "theme_color": "#fbf8f3",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

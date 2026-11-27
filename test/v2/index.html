@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fbf8f3">
+  <meta name="description" content="记录生活里的微光，让每一点进步都算数。">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./app.css">
+  <title>GK · 光之力量 V2.0 测试版</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="GK 光之力量首页">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span class="brand-copy"><strong>GK · 光之力量</strong><small>V2.0 · 独立测试版</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="save-state"><i class="status-dot" aria-hidden="true"></i><span id="saveStatus">仅保存在本机</span></span>
+        <label class="date-picker-label" for="activeDate">记录日期</label>
+        <input id="activeDate" class="date-picker" type="date" aria-label="选择记录日期">
+        <button class="button button-quiet button-small" id="todayButton" type="button">回到今天</button>
+      </div>
+    </header>
+
+    <nav class="main-nav" aria-label="主导航">
+      <button class="nav-item is-active" data-view="home" type="button">光之小屋</button>
+      <button class="nav-item" data-view="light" type="button">光之记录</button>
+      <button class="nav-item" data-view="plans" type="button">生活计划</button>
+      <button class="nav-item" data-view="training" type="button">训练记录</button>
+      <button class="nav-item" data-view="body" type="button">身体趋势</button>
+      <button class="nav-item" data-view="history" type="button">历史档案</button>
+      <button class="nav-item" data-view="reports" type="button">报告与备份</button>
+    </nav>
+
+    <main>
+      <section class="view is-visible" id="view-home" aria-labelledby="homeTitle">
+        <div class="page-heading">
+          <div><p class="eyebrow" id="todayGreeting">A LITTLE LIGHT, EVERY DAY</p><h1 id="homeTitle">欢迎回到你的小屋</h1><p class="page-subtitle" id="dateCaption"></p></div>
+          <span class="day-pill" id="dayPart">今日 · 一起慢慢来</span>
+        </div>
+
+        <div class="hero-grid">
+          <article class="room-card surface">
+            <div class="room-heading"><div><p class="eyebrow">YOUR LITTLE HOME</p><h2>光之小屋</h2></div><span class="room-weather" id="roomMood">灯火温柔</span></div>
+            <div class="room-scene" role="img" aria-label="温暖的小屋里有窗、书桌、盆栽和正在成长的像素旅人">
+              <div class="scene-glow"></div>
+              <svg class="room-art" viewBox="0 0 720 330" aria-hidden="true" shape-rendering="crispEdges">
+                <rect width="720" height="250" fill="#f4e9df"/><rect y="250" width="720" height="80" fill="#d5b49f"/>
+                <rect x="35" y="38" width="650" height="8" fill="#dfc5b3"/><rect x="35" y="226" width="650" height="8" fill="#dfc5b3"/>
+                <rect x="76" y="67" width="182" height="123" fill="#f8f1e9"/><rect x="88" y="79" width="158" height="99" fill="#a994bf"/>
+                <rect x="88" y="137" width="158" height="41" fill="#d7c6d6"/><rect x="153" y="79" width="10" height="99" fill="#f8f1e9"/><rect x="88" y="125" width="158" height="9" fill="#f8f1e9"/>
+                <rect x="102" y="96" width="20" height="20" fill="#f7d99b"/><rect x="201" y="101" width="14" height="14" fill="#f7d99b"/>
+                <rect x="375" y="74" width="142" height="76" fill="#fbf6ef"/><rect x="388" y="87" width="116" height="50" fill="#c9b9d5"/><rect x="405" y="112" width="82" height="25" fill="#89799f"/>
+                <rect x="572" y="96" width="44" height="94" fill="#9c725c"/><rect x="580" y="84" width="28" height="16" fill="#dfbc8b"/><rect x="586" y="52" width="12" height="33" fill="#dfbc8b"/><rect x="581" y="45" width="22" height="9" fill="#e8d5ad"/>
+                <rect x="70" y="228" width="96" height="12" fill="#b9896d"/><rect x="82" y="240" width="11" height="52" fill="#8e6957"/><rect x="144" y="240" width="11" height="52" fill="#8e6957"/>
+                <rect x="95" y="209" width="45" height="19" fill="#faf2e8"/><rect x="104" y="198" width="26" height="11" fill="#7d698f"/>
+                <rect x="544" y="218" width="26" height="30" fill="#c48b68"/><rect x="538" y="211" width="38" height="12" fill="#e2ba87"/><rect x="551" y="181" width="11" height="30" fill="#6f8b71"/><rect x="531" y="177" width="21" height="11" fill="#789579"/><rect x="558" y="168" width="22" height="13" fill="#789579"/>
+                <rect x="0" y="292" width="720" height="38" fill="#c89f84"/><rect x="28" y="303" width="664" height="8" fill="#b6886e"/>
+                <g id="pixelTraveler" class="pixel-traveler">
+                  <rect x="294" y="168" width="46" height="42" fill="#463c5e"/><rect x="286" y="177" width="62" height="34" fill="#463c5e"/>
+                  <rect x="294" y="184" width="46" height="29" fill="#f2c5a1"/><rect x="290" y="178" width="54" height="10" fill="#66577d"/>
+                  <rect x="302" y="193" width="7" height="8" fill="#44374e"/><rect x="326" y="193" width="7" height="8" fill="#44374e"/><rect x="309" y="205" width="16" height="4" fill="#bd7e74"/>
+                  <rect x="285" y="213" width="64" height="49" fill="#746488"/><rect x="279" y="221" width="76" height="31" fill="#746488"/><rect x="291" y="259" width="21" height="28" fill="#544665"/><rect x="322" y="259" width="21" height="28" fill="#544665"/>
+                  <rect x="286" y="284" width="28" height="10" fill="#604d56"/><rect x="320" y="284" width="28" height="10" fill="#604d56"/>
+                  <rect x="302" y="169" width="13" height="9" fill="#e9c889"/><rect x="317" y="169" width="15" height="9" fill="#e9c889"/>
+                  <rect class="traveler-star" x="332" y="154" width="10" height="10" fill="#e2bd77"/><rect class="traveler-star" x="279" y="204" width="7" height="7" fill="#e2bd77"/>
+                </g>
+              </svg>
+              <span class="scene-caption">记录一点日常，小屋就亮一点</span>
+            </div>
+            <div class="room-foot"><span>每一种生活，都值得被温柔记下。</span><span class="room-sparkle" aria-hidden="true">✦　✧　✦</span></div>
+          </article>
+
+          <article class="growth-card">
+            <div class="growth-top"><div><p class="eyebrow eyebrow-light">YOUR JOURNEY</p><h2>旅人档案</h2></div><span class="level-seal" id="levelSeal">Lv. 1</span></div>
+            <p class="character-title" id="characterTitle">初见微光</p>
+            <p class="character-note" id="characterNote">每一束光，都来自你真实走过的日子。</p>
+            <div class="xp-total"><strong id="totalXp">0</strong><span>永久累计 XP</span></div>
+            <div class="xp-track" aria-label="升级经验进度"><span id="xpProgress"></span></div>
+            <div class="xp-foot"><span id="xpLevelText">Lv. 1</span><span id="xpNext">距离下一等级还有 100 XP</span></div>
+            <div class="growth-divider"></div>
+            <div class="today-mini"><div><strong id="todayLights">0</strong><span>今日微光</span></div><div><strong id="todayEarned">0</strong><span>今日 XP</span></div><div><strong id="recordDays">0</strong><span>留光天数</span></div></div>
+            <button class="button button-gold" type="button" data-open-view="light">记下一束光 <span aria-hidden="true">↗</span></button>
+          </article>
+        </div>
+
+        <div class="home-grid">
+          <article class="surface section-card"><div class="section-title"><div><p class="eyebrow">SIX DIMENSIONS</p><h2>一路积累的力量</h2></div><span class="subtle-label">只增长，不倒退</span></div><div class="stat-grid" id="statGrid"></div></article>
+          <article class="surface section-card daily-glance"><div class="section-title"><div><p class="eyebrow">TODAY'S MOMENT</p><h2>今天的片刻</h2></div><span class="sun-icon" aria-hidden="true">☼</span></div><p class="glance-quote" id="homeQuote">给自己留一点空间，生活会慢慢展开。</p><div class="glance-progress"><div><span>今日光之记录</span><strong id="todayCountLabel">0 / 10</strong></div><div class="thin-track"><span id="todayProgress"></span></div></div><button class="text-button" type="button" data-open-view="light">看看今天的十项记录 <span aria-hidden="true">→</span></button></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-light" aria-labelledby="lightTitle" hidden>
+        <div class="page-heading"><div><p class="eyebrow">TEN WAYS TO GLOW</p><h1 id="lightTitle">光之记录</h1><p class="page-subtitle">不需要完成全部，真实发生的每一点都值得留下。</p></div><span class="day-pill" id="lightDatePill"></span></div>
+        <div class="notice notice-soft"><span class="notice-icon" aria-hidden="true">✦</span><span>同一项每天只会获得一次奖励。记下之后，XP 与属性永久保留；休息与空白都没有惩罚。</span></div>
+        <div class="light-grid" id="lightGrid"></div>
+      </section>
+
+      <section class="view" id="view-plans" aria-labelledby="plansTitle" hidden>
+        <div class="page-heading"><div><p class="eyebrow">GENTLE RHYTHM</p><h1 id="plansTitle">生活计划</h1><p class="page-subtitle">安排能支持你的节奏，完成情况只做记录，不扣分。</p></div><span class="day-pill" id="planDatePill"></span></div>
+        <div class="split-grid">
+          <article class="surface section-card"><div class="section-title"><div><p class="eyebrow">A SMALL PLAN</p><h2>添加一个日常计划</h2></div><span class="plan-spark" aria-hidden="true">✧</span></div>
+            <form id="planForm" class="form-stack"><label>计划内容<input id="planTitleInput" name="title" maxlength="90" placeholder="例如：睡前读几页书" required></label><div class="form-row"><label>大约时间<input id="planTimeInput" name="time" type="time"></label><label>归属<select id="planKindInput" name="kind"><option value="生活">生活节奏</option><option value="饮食">饮食照顾</option><option value="学习">学习成长</option><option value="休息">休息放松</option><option value="自定义">其他</option></select></label></div><button class="button button-primary" type="submit">添加到我的计划 <span aria-hidden="true">＋</span></button><p class="form-hint" id="planStatus">计划会在日期切换后继续显示，可随时归档。</p></form>
+          </article>
+          <article class="surface section-card"><div class="section-title"><div><p class="eyebrow">YOUR RHYTHM</p><h2>这一天的安排</h2></div><span class="count-badge" id="planCount">0 项</span></div><div id="planList" class="plan-list"></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-training" aria-labelledby="trainingTitle" hidden>
+        <div class="page-heading"><div><p class="eyebrow">MOVE AT YOUR PACE</p><h1 id="trainingTitle">训练记录</h1><p class="page-subtitle">按动作、按组写下训练过程，也可以记录适合自己的休息。</p></div><span class="day-pill" id="trainingDatePill"></span></div>
+        <div class="split-grid training-layout">
+          <article class="surface section-card"><div class="section-title"><div><p class="eyebrow">NEW SESSION</p><h2>记录一个动作</h2></div><span class="dumbbell" aria-hidden="true">⌁</span></div>
+            <form id="trainingForm" class="form-stack"><label>动作名称<input id="exerciseInput" maxlength="80" placeholder="例如：坐姿划船" required></label><div class="set-entry"><div class="set-entry-heading"><strong>第 1 组</strong><span>按实际情况填写</span></div><div class="form-row three-cols"><label>重量（kg）<input id="setWeightInput" type="number" min="0" step="0.1" placeholder="选填"></label><label>次数<input id="setRepsInput" type="number" min="0" step="1" placeholder="选填"></label><label>主观强度<input id="setRpeInput" type="number" min="0" max="10" step="0.5" placeholder="0–10"></label></div></div><button class="button button-primary" type="submit">保存这个动作 <span aria-hidden="true">＋</span></button><p class="form-hint">保存后可继续添加该动作的其他组，也可逐个记录不同动作。</p></form>
+          </article>
+          <article class="surface section-card"><div class="section-title"><div><p class="eyebrow">TODAY'S MOVEMENT</p><h2>本日训练</h2></div><span class="count-badge" id="workoutCount">0 个动作</span></div><div id="workoutList" class="workout-list"></div><div id="legacyTraining" class="legacy-entry" hidden></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-body" aria-labelledby="bodyTitle" hidden>
+        <div class="page-heading"><div><p class="eyebrow">A GENTLE CHECK-IN</p><h1 id="bodyTitle">身体趋势</h1><p class="page-subtitle">用自己的节奏记录身体状态，趋势只供回顾，不作诊断。</p></div><span class="day-pill" id="bodyDatePill"></span></div>
+        <div class="split-grid body-layout">
+          <article class="surface section-card"><div class="section-title"><div><p class="eyebrow">BODY NOTES</p><h2>今天的身体记录</h2></div><span class="body-heart" aria-hidden="true">♡</span></div>
+            <form id="bodyForm" class="form-stack"><div class="metrics-grid">
+              <label>体重（斤）<input data-metric="weight" type="number" min="0" step="0.1" placeholder="选填"></label>
+              <label>腰围（cm）<input data-metric="waist" type="number" min="0" step="0.1" placeholder="选填"></label>
+              <label>体脂率（%）<input data-metric="fat" type="number" min="0" max="100" step="0.1" placeholder="选填"></label>
+              <label>静息心率（次/分）<input data-metric="heartRate" type="number" min="0" max="250" step="1" placeholder="选填"></label>
+              <label>睡眠（小时）<input data-metric="sleep" type="number" min="0" max="24" step="0.1" placeholder="选填"></label>
+              <label>心情<textarea data-metric="mood" rows="2" maxlength="500" placeholder="一句话记下今天的感受"></textarea></label>
+            </div><button class="button button-primary" type="submit">保存身体记录</button><p class="form-hint" id="bodyStatus">所有内容只保存在当前浏览器。</p></form>
+          </article>
+          <article class="surface section-card chart-card"><div class="section-title"><div><p class="eyebrow">YOUR HISTORY</p><h2>身体变化</h2></div><select id="metricSelect" aria-label="选择趋势指标"><option value="weight">体重</option><option value="waist">腰围</option><option value="fat">体脂率</option><option value="heartRate">静息心率</option><option value="sleep">睡眠</option></select></div>
+            <div class="range-switch" aria-label="趋势时间范围"><button type="button" data-range="7" class="is-active">7天</button><button type="button" data-range="30">30天</button><button type="button" data-range="90">90天</button><button type="button" data-range="all">全部</button></div>
+            <div class="chart-summary" id="trendSummary"></div><div class="chart-frame"><svg id="trendChart" viewBox="0 0 640 220" role="img" aria-label="身体指标趋势图"></svg></div><p class="chart-footnote" id="chartFootnote">选择指标和时间范围查看记录。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-history" aria-labelledby="historyTitle" hidden>
+        <div class="page-heading"><div><p class="eyebrow">DAYS WORTH KEEPING</p><h1 id="historyTitle">历史档案</h1><p class="page-subtitle">每个日期都可以回看，也可以补记过去的日子。</p></div><span class="day-pill" id="historyDatePill"></span></div>
+        <div class="split-grid history-layout"><article class="surface section-card calendar-card"><div class="section-title"><div><p class="eyebrow">LIFE CALENDAR</p><h2 id="calendarTitle">—</h2></div><div class="calendar-controls"><button class="icon-button" id="prevMonth" type="button" aria-label="上个月">‹</button><button class="icon-button" id="nextMonth" type="button" aria-label="下个月">›</button></div></div><div class="calendar-grid calendar-weekdays" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="calendar-grid" id="calendarGrid"></div><div class="calendar-legend"><span><i class="legend-dot legend-recorded"></i>有记录</span><span><i class="legend-dot legend-selected"></i>当前日期</span></div></article>
+          <article class="surface section-card"><div class="section-title"><div><p class="eyebrow">DAY IN REVIEW</p><h2 id="historyDetailTitle">所选日期</h2></div><button class="text-button" type="button" data-open-view="home">查看这一天 <span aria-hidden="true">→</span></button></div><div id="historyDetail" class="history-detail"></div><div class="recent-title"><strong>最近有记录的日子</strong><span>点选日期即可查看</span></div><div id="recentDays" class="recent-days"></div></article></div>
+      </section>
+
+      <section class="view" id="view-reports" aria-labelledby="reportsTitle" hidden>
+        <div class="page-heading"><div><p class="eyebrow">A LOOK BACK, WITH KINDNESS</p><h1 id="reportsTitle">报告与备份</h1><p class="page-subtitle">回顾已经发生的事，重要的数据始终由你保管。</p></div><span class="day-pill" id="reportDatePill"></span></div>
+        <div class="split-grid reports-layout"><article class="surface section-card"><div class="section-title"><div><p class="eyebrow">GROWTH REPORT</p><h2>生活成长报告</h2></div><span class="report-sun" aria-hidden="true">☼</span></div><div class="range-switch report-ranges" aria-label="报告时间范围"><button type="button" data-report-range="7" class="is-active">7天</button><button type="button" data-report-range="30">30天</button><button type="button" data-report-range="90">90天</button><button type="button" data-report-range="all">全部</button></div><pre class="report-output" id="reportText"></pre><div class="button-row"><button class="button button-primary" id="copyReport" type="button">复制报告</button><button class="button button-quiet" id="refreshReport" type="button">重新生成</button></div></article>
+          <article class="surface section-card backup-card"><div class="section-title"><div><p class="eyebrow">YOUR DATA, YOURS</p><h2>本地数据备份</h2></div><span class="backup-mark" aria-hidden="true">↗</span></div><p class="backup-intro">新版记录与从 V1 读取的历史副本都保存在这台设备的浏览器里，不会自动发送到网络。</p><div class="backup-actions"><button class="button button-primary" id="exportBackup" type="button">导出 V2 备份 <span aria-hidden="true">↓</span></button><label class="button button-quiet file-button" for="restoreBackup">导入备份</label><input id="restoreBackup" type="file" accept=".json,application/json" hidden></div><p class="form-hint" id="backupStatus">导入 V1 导出文件会合并历史；导入 V2 备份会补入缺少的记录。</p><div class="privacy-box"><span aria-hidden="true">⌂</span><p><strong>旧版数据会保留</strong><br>V2 只读取同一浏览器里的 <code>life-feedback-v1</code>，将副本存入新版数据；不会删除或改写旧版数据键。</p></div><div class="privacy-box privacy-box-muted"><span aria-hidden="true">i</span><p><strong>更换浏览器或设备前请导出</strong><br>清理浏览器存储会清除本机数据，备份文件里可能包含身体与生活记录，请妥善保管。</p></div></article></div>
+      </section>
+    </main>
+
+    <footer class="app-footer"><span>GK · 光之力量</span><span>让生活的每一点微光，都有被珍藏的地方。</span><span class="test-badge">独立测试版</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
